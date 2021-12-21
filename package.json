@@ -1,11 +1,12 @@
 {
   "private": true,
   "scripts": {
-    "dev": "TAILWIND_MODE=watch postcss -i tailwind.css -o build.css --watch nodemon",
+    "dev": "TAILWIND_MODE=watch postcss -i tailwind.css -o build.css --watch cross-env NODE_ENV=development && TAILWIND_MODE=watch nodemon next dev && cd pages/blog && npm run start:clean && cd ../tips && npm run clean:dev",
+    "clean:dev": "rm -rf package-lock.json yarn.lock node_modules/ && npm install && cross-env NODE_ENV=development && TAILWIND_MODE=watch next dev",
     "dev:clean": "rm -rf package-lock.json yarn.lock node_modules/ && npm install && TAILWIND_MODE=watch postcss -i tailwind.css -o build.css --watch nodemon",
     "build": "next build && tsc --project tsconfig.server.json",
     "start": "cross-env NODE_ENV=production node dist/index.js",
-    "start:clean": "rm -rf package-lock.json yarn.lock node_modules/ && npm install && cross-env NODE_ENV=production nodemon dist/index.js"
+    "clean:start": "rm -rf package-lock.json yarn.lock node_modules/ && npm install && cross-env NODE_ENV=production nodemon dist/index.js"
   },
   "dependencies": {
     "cross-env": "^7.0.2",
